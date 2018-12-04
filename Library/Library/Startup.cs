@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Library.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+//using EFGetStarted.AspNetCore.ExistingDb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library
 {
@@ -41,6 +43,9 @@ namespace Library
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var connection = @"Server=DESKTOP-2C5HSHU\IBD;Database=Library;Trusted_Connection=True;ConnectRetryCount=0;User Id = sa;password=123456789";
+            services.AddDbContext<Library.Models.LibraryContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
