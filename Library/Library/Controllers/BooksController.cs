@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Library.Models.Data;
+using Library.Models.ViewModel;
+using Library.Models;
 
 namespace Library.Controllers
 {
     public class BooksController : Controller
     {
         private readonly LibraryContext _context;
-
+        BooksViewModel viewModel = new BooksViewModel();
         public BooksController(LibraryContext context)
         {
             _context = context;
@@ -21,8 +23,11 @@ namespace Library.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var libraryContext = _context.Book.Include(b => b.Author);
-            return View(await libraryContext.ToListAsync());
+           
+          
+            var BooksList = viewModel.booksViews(_context);
+
+            return View(BooksList);
         }
 
         // GET: Books/Details/5
@@ -48,6 +53,9 @@ namespace Library.Controllers
         public IActionResult Create()
         {
             ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId");
+            List<AuthorDropDown> authors = new List<AuthorDropDown>();
+            authors = viewModel.GetAuthors(_context);
+            ViewBag.ListOfBook = authors;
             return View();
         }
 
@@ -56,15 +64,14 @@ namespace Library.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Title,AuthorId,Description,BookType")] Book book)
+        public async Task<IActionResult> Create(BooksViewModel book)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
-                await _context.SaveChangesAsync();
+                viewModel.AddBooks(_context, book);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId", book.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId", book.Author);
             return View(book);
         }
 
@@ -76,12 +83,15 @@ namespace Library.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = viewModel.getBookDetails(_context, id);
             if (book == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "AuthorId", book.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Author, "AuthorId", "Author", book.Author.ID);
+            List<AuthorDropDown> authors = new List<AuthorDropDown>();
+            authors = viewModel.GetAuthors(_context); 
+            ViewBag.ListOfBook = authors;
             return View(book);
         }
 
@@ -151,6 +161,25 @@ namespace Library.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> Lease(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Book
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(m => m.BookId == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Book = id;
+            return RedirectToAction("Create", "Leases", new { id=id});
+            //return View("~/Views/Leases/Create.cshtml");
+        }
         private bool BookExists(int id)
         {
             return _context.Book.Any(e => e.BookId == id);

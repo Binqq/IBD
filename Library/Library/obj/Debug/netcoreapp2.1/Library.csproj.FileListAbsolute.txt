@@ -50,3 +50,8 @@ E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views
 E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Leases\Details.g.cshtml.cs
 E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Leases\Edit.g.cshtml.cs
 E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Leases\Index.g.cshtml.cs
+E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Users\Create.g.cshtml.cs
+E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Users\Delete.g.cshtml.cs
+E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Users\Details.g.cshtml.cs
+E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Users\Edit.g.cshtml.cs
+E:\Michał\Studia\newIBD\IBD\Library\Library\obj\Debug\netcoreapp2.1\Razor\Views\Users\Index.g.cshtml.cs

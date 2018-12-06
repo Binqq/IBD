@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Library.Models.Data.Book>
-
+﻿@model IEnumerable<Library.Models.ViewModel.BooksViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -24,6 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Availability)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -40,12 +42,16 @@
                 @Html.DisplayFor(modelItem => item.BookType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author.AuthorId)
+                @Html.DisplayFor(modelItem => item.Author.Author)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Availability)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BookId">Edytuj</a> |
+                <a asp-action="Details" asp-route-id="@item.BookId">Szczegóły</a> |
+                <a asp-action="Delete" asp-route-id="@item.BookId">Usuń</a>|
+                <a asp-action="Lease" asp-route-id="@item.BookId">Wypożycz</a>
             </td>
         </tr>
 }

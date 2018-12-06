@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -26,7 +29,7 @@ namespace Library.Models.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-2C5HSHU\\IBD;Database=Library;Trusted_Connection=True;User Id=sa; password=123456789 ");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-2C5HSHU\\IBD;Database=Library;Trusted_Connection=True;User Id=sa; password=123456789;");
             }
         }
 
@@ -115,37 +118,63 @@ namespace Library.Models.Data
                     .HasConstraintName("FK_Lease_User");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            //modelBuilder.Entity<User>(entity =>
+            //{
+            //    entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            //    entity.Property(e => e.AddressId).HasColumnName("AddressID");
+
+            //    entity.Property(e => e.Login)
+            //        .IsRequired()
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Name)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Password)
+            //        .IsRequired()
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.Surname)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
+
+            //    entity.Property(e => e.UserType).HasMaxLength(10);
+
+            //    entity.HasOne(d => d.Address)
+            //        .WithMany(p => p.User)
+            //        .HasForeignKey(d => d.AddressId)
+            //        .HasConstraintName("FK_User_Address");
+            //});
+            modelBuilder.Query<LoginByUserNamePassword>();
+        }
+        public async Task<List<LoginByUserNamePassword>> LoginByUsernamePasswordMethodAsync(string usernameVal, string passwordVal)
+        {
+            // Initialization.  
+            List<LoginByUserNamePassword> lst = new List<LoginByUserNamePassword>();
+
+            try
             {
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                // Settings.  
+                SqlParameter usernameParam = new SqlParameter("@username", usernameVal ?? (object)DBNull.Value);
+                SqlParameter passwordParam = new SqlParameter("@password", passwordVal ?? (object)DBNull.Value);
 
-                entity.Property(e => e.AddressId).HasColumnName("AddressID");
+                // Processing.  
+                string sqlQuery = "EXEC [dbo].[LoginByUsernamePassword] " +
+                                    "@username, @password";
 
-                entity.Property(e => e.Login)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                lst = await this.Query<LoginByUserNamePassword>().FromSql(sqlQuery, usernameParam, passwordParam).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Surname)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserType).HasMaxLength(10);
-
-                entity.HasOne(d => d.Address)
-                    .WithMany(p => p.User)
-                    .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK_User_Address");
-            });
+            // Info.  
+            return lst;
         }
     }
 }

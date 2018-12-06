@@ -46,10 +46,11 @@ namespace Library.Controllers
         }
 
         // GET: Leases/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId");
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Login");
+            ViewBag.Book = id;
             return View();
         }
 
