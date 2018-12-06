@@ -83,7 +83,7 @@ Write(ViewBag.Title);
             WriteLiteral(".</h2>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md-8\">\r\n        <section>\r\n            ");
             EndContext();
             BeginContext(246, 2390, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4fab514f1ada475ea964c1dd5ba52f48", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d65d7c41ea44b748b65cbe6c588f7f4", async() => {
                 BeginContext(302, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();
@@ -171,7 +171,7 @@ Write(ViewBag.Title);
                 WriteLiteral("\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-md-offset-2 col-md-10\">\r\n                        ");
                 EndContext();
                 BeginContext(2491, 72, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0702656f475f49478aa772eb93e7a0d8", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ea9c1cf94d5e4a2386297d6c8705353e", async() => {
                     BeginContext(2548, 6, true);
                     WriteLiteral("Log in");
                     EndContext();
