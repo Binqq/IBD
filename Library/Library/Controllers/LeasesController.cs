@@ -50,7 +50,8 @@ namespace Library.Controllers
         {
             ViewData["BookId"] = new SelectList(_context.Book, "BookId", "BookId");
             ViewData["UserId"] = new SelectList(_context.User, "UserId", "Login");
-            ViewBag.Book = id;
+           var book = _context.Book.Where(b=>b.BookId==id).FirstOrDefault(); ;
+            ViewBag.Book = book;
             return View();
         }
 

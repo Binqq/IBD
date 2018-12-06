@@ -3,7 +3,7 @@
 @model IndexModel
 
 @{
-    ViewBag.Title = "ASP.NET Core Razor Pages - Simple Login Database First Approach";
+    ViewBag.Title = "Witamy w systemie bibliotecznym";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,52 +11,7 @@
 <div class="row">
     <div class="col-md-8">
         <section>
-            <form method="post" role="form" class="form-horizontal">
-                @Html.AntiForgeryToken()
-
-                <h4>Use a local account to log in.</h4>
-                <hr />
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.LoginModel.Login, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.LoginModel.Login, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.LoginModel.Login, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.LoginModel.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.LoginModel.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.LoginModel.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                @*<div class="form-group">
-                        <label asp-for="@model.LoginModel.Login" class = "col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="@model.LoginModel.Login" class="form-control" />
-                            <span class="alert-danger" asp-validation-for="@model.LoginModel.Login"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="LoginModel.Password" class="col-md-2 control-label"></label>
-                        <div class="col-md-10">
-                            <input asp-for="LoginModel.Password" class="form-control" />
-                            <span class="alert-danger" asp-validation-for="LoginModel.Password"></span>
-                        </div>
-                    </div>*@
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button asp-page-handler="LogIn" class="btn btn-default">Log in</button>
-                    </div>
-                </div>
-            </form>
+          <h10>Witamy w systemie bibliotecznym</h10>
         </section>
     </div>
 </div>  

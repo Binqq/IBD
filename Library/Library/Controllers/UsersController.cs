@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Library.Models.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Library.Controllers
 {
-    [Authorize(Roles = "Admin")]
+       
     public class UsersController : Controller
     {
         private readonly LibraryContext _context;
@@ -23,8 +24,15 @@ namespace Library.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var libraryContext = _context.User.Include(u => u.Address);
+            var libraryContext = GetAllUsers();
             return View(await libraryContext.ToListAsync());
+        }
+
+        public IIncludableQueryable<User,Address> GetAllUsers()
+        {
+            var libraryContext = _context.User.Include(u => u.Address);
+
+            return  libraryContext;
         }
 
         // GET: Users/Details/5

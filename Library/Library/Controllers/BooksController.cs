@@ -172,11 +172,16 @@ namespace Library.Controllers
             var book = await _context.Book
                 .Include(b => b.Author)
                 .FirstOrDefaultAsync(m => m.BookId == id);
+            var lease = await _context.Lease.Where(l => l.BookId == id).FirstOrDefaultAsync();
+            if(lease!=null)
+            {
+                return RedirectToAction("Delete", "Leases", new { id = lease.LeaseId});
+            }
             if (book == null)
             {
                 return NotFound();
             }
-            ViewBag.Book = id;
+            //ViewBag.Book = id;
             return RedirectToAction("Create", "Leases", new { id=id});
             //return View("~/Views/Leases/Create.cshtml");
         }
